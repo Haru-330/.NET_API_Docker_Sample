@@ -11,7 +11,17 @@ builder.Services.AddSwaggerGen();
 var configuration = builder.Configuration; // Use the Configuration property of the builder object
 
 builder.Services.AddDbContext<BookContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
+// CORSエラーの回避のために追加
+// 5173はViteのデフォルトポートなので、他のポートを使用している場合は適宜変更してください。
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+                    builder => builder
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins("http://localhost:5173")
+                );
+});
 var app = builder.Build();
 
 // Apply pending migrations
@@ -43,4 +53,5 @@ app.UseRouting(); // 追加
 
 app.MapControllers(); //追加
 
+app.UseCors(); // CORSを有効にするために追加
 app.Run();

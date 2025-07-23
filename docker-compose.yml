@@ -11,9 +11,9 @@ services:
     depends_on:
       - sql
     environment:
-      - ConnectionStrings__DefaultConnection=Server=sql;Database=ZennData;User Id=sa;Password=<パスワード>;MultipleActiveResultSets=true;TrustServerCertificate=True;
+      - ConnectionStrings__DefaultConnection=Server=sql;Database=ZennData;User Id=sa;Password=MyNewPassw0rd!;MultipleActiveResultSets=true;TrustServerCertificate=True;
     ports:
-      - 5109:5109
+      - 5009:5109
   sql:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     container_name: sql-server-dotnet-api-sample
@@ -21,4 +21,4 @@ services:
       - "1433:1433" 
     environment:
       - ACCEPT_EULA=y
-      - SA_PASSWORD=<パスワード>
+      - SA_PASSWORD=MyNewPassw0rd!
